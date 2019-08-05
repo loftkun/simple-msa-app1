@@ -1,15 +1,20 @@
 import sys
 import traceback
-from flask import Flask, jsonify
-
 import requests
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
   try:
-    url = "http://app2:5000"
+    # get param
+    interval = request.args.get('sleep')
+    if interval == None:
+      interval = 0
+    
+    # req to app2
+    url = "http://app2:5000?sleep={0}".format(interval)
     res = requests.get(url,timeout=5.0)
     return jsonify({"app1": "{0}".format(res)})
   except Exception as e:
