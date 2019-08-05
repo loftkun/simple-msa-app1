@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  app1:
+    build: .
+    depends_on:
+      - app2
+  app2:
+    image: loftkun/simple-msa-app2:latest
